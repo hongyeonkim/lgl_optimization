@@ -1,0 +1,77 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 900px;
+            height: 700px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "#ffe8e8", "id": "\uc624\ub69c\uae303\ubd84\uc1e0\uace0\uae30\uc9dc\uc7a5200G", "label": "\uc624\ub69c\uae303\ubd84\uc1e0\uace0\uae30\uc9dc\uc7a5200G", "shape": "dot", "size": 22}, {"color": "#ffe8e8", "id": "\uc624\ub69c\uae303\ubd84\uc1e0\uace0\uae30\uce74\ub808200G", "label": "\uc624\ub69c\uae303\ubd84\uc1e0\uace0\uae30\uce74\ub808200G", "shape": "dot", "size": 22}, {"color": "#ffaeae", "id": "\ud480\ubb34\uc6d0\ucf69\ub098\ubb3c(\uc720\uae30\ub18d/270G)", "label": "\ud480\ubb34\uc6d0\ucf69\ub098\ubb3c(\uc720\uae30\ub18d/270G)", "shape": "dot", "size": 24}, {"color": "#ffaeae", "id": "\uc2e4\uc18d\ub450\ubd80520G", "label": "\uc2e4\uc18d\ub450\ubd80520G", "shape": "dot", "size": 24}, {"color": "#ff0000", "id": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "label": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "shape": "dot", "size": 32}, {"color": "#ffe8e8", "id": "\uac74\uad6d)\uc6b0\ub9ac\uc6b0\uc720\uae30\ud68d900ML*2", "label": "\uac74\uad6d)\uc6b0\ub9ac\uc6b0\uc720\uae30\ud68d900ML*2", "shape": "dot", "size": 22}, {"color": "#ffe8e8", "id": "\ub2e4\ub2e4\uae30\uc624\uc774(\ud2b9)", "label": "\ub2e4\ub2e4\uae30\uc624\uc774(\ud2b9)", "shape": "dot", "size": 22}, {"color": "#ffe8e8", "id": "\uc2a4\uc704\ud2b8\ub9c8\uc6b4\ud2f4\ubc14\ub098\ub098(\ud2b9/\uc1a1\uc774)", "label": "\uc2a4\uc704\ud2b8\ub9c8\uc6b4\ud2f4\ubc14\ub098\ub098(\ud2b9/\uc1a1\uc774)", "shape": "dot", "size": 22}, {"color": "#ffe8e8", "id": "\uc560\ud638\ubc15(\ud2b9)", "label": "\uc560\ud638\ubc15(\ud2b9)", "shape": "dot", "size": 22}]);
+        edges = new vis.DataSet([{"arrows": "to", "from": "\uc624\ub69c\uae303\ubd84\uc1e0\uace0\uae30\uc9dc\uc7a5200G", "title": "0.48", "to": "\uc624\ub69c\uae303\ubd84\uc1e0\uace0\uae30\uce74\ub808200G", "width": 4.8}, {"arrows": "to", "from": "\uc624\ub69c\uae303\ubd84\uc1e0\uace0\uae30\uce74\ub808200G", "title": "0.44", "to": "\uc624\ub69c\uae303\ubd84\uc1e0\uace0\uae30\uc9dc\uc7a5200G", "width": 4.4}, {"arrows": "to", "from": "\ud480\ubb34\uc6d0\ucf69\ub098\ubb3c(\uc720\uae30\ub18d/270G)", "title": "0.12", "to": "\uc2e4\uc18d\ub450\ubd80520G", "width": 1.2}, {"arrows": "to", "from": "\ud480\ubb34\uc6d0\ucf69\ub098\ubb3c(\uc720\uae30\ub18d/270G)", "title": "0.18", "to": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "width": 1.7999999999999998}, {"arrows": "to", "from": "\uc2e4\uc18d\ub450\ubd80520G", "title": "0.09", "to": "\ud480\ubb34\uc6d0\ucf69\ub098\ubb3c(\uc720\uae30\ub18d/270G)", "width": 0.8999999999999999}, {"arrows": "to", "from": "\uc2e4\uc18d\ub450\ubd80520G", "title": "0.21", "to": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "width": 2.1}, {"arrows": "to", "from": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "title": "0.09", "to": "\uc2e4\uc18d\ub450\ubd80520G", "width": 0.8999999999999999}, {"arrows": "to", "from": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "title": "0.08", "to": "\uac74\uad6d)\uc6b0\ub9ac\uc6b0\uc720\uae30\ud68d900ML*2", "width": 0.8}, {"arrows": "to", "from": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "title": "0.06", "to": "\ud480\ubb34\uc6d0\ucf69\ub098\ubb3c(\uc720\uae30\ub18d/270G)", "width": 0.6}, {"arrows": "to", "from": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "title": "0.06", "to": "\ub2e4\ub2e4\uae30\uc624\uc774(\ud2b9)", "width": 0.6}, {"arrows": "to", "from": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "title": "0.07", "to": "\uc2a4\uc704\ud2b8\ub9c8\uc6b4\ud2f4\ubc14\ub098\ub098(\ud2b9/\uc1a1\uc774)", "width": 0.7000000000000001}, {"arrows": "to", "from": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "title": "0.04", "to": "\uc560\ud638\ubc15(\ud2b9)", "width": 0.4}, {"arrows": "to", "from": "\uac74\uad6d)\uc6b0\ub9ac\uc6b0\uc720\uae30\ud68d900ML*2", "title": "0.18", "to": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "width": 1.7999999999999998}, {"arrows": "to", "from": "\ub2e4\ub2e4\uae30\uc624\uc774(\ud2b9)", "title": "0.16", "to": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "width": 1.6}, {"arrows": "to", "from": "\uc2a4\uc704\ud2b8\ub9c8\uc6b4\ud2f4\ubc14\ub098\ub098(\ud2b9/\uc1a1\uc774)", "title": "0.14", "to": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "width": 1.4000000000000001}, {"arrows": "to", "from": "\uc560\ud638\ubc15(\ud2b9)", "title": "0.10", "to": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "width": 1.0}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {"edges": {"smooth": {"forceDirection": "none"}}, "physics": {"forceAtlas2Based": {"springLength": 150}, "minVelocity": 0.75, "solver": "forceAtlas2Based"}};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

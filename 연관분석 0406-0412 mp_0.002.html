@@ -1,0 +1,77 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 900px;
+            height: 700px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "#ffcbcb", "id": "\uc2e4\uc18d\ub450\ubd80520G", "label": "\uc2e4\uc18d\ub450\ubd80520G", "shape": "dot", "size": 22}, {"color": "#ff0000", "id": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "label": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "shape": "dot", "size": 28}, {"color": "#ff9191", "id": "\uac74\uad6d)\uc6b0\ub9ac\uc6b0\uc720\uae30\ud68d900ML*2", "label": "\uac74\uad6d)\uc6b0\ub9ac\uc6b0\uc720\uae30\ud68d900ML*2", "shape": "dot", "size": 24}, {"color": "#ff9191", "id": "\ub2e4\ub2e4\uae30\uc624\uc7744\uc785/(\ubd09)", "label": "\ub2e4\ub2e4\uae30\uc624\uc7744\uc785/(\ubd09)", "shape": "dot", "size": 24}, {"color": "#ff3a3a", "id": "\uace0\uc0b0\uc9c0\ubc14\ub098\ub09810CP", "label": "\uace0\uc0b0\uc9c0\ubc14\ub098\ub09810CP", "shape": "dot", "size": 26}]);
+        edges = new vis.DataSet([{"arrows": "to", "from": "\uc2e4\uc18d\ub450\ubd80520G", "title": "0.17", "to": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "width": 1.7000000000000002}, {"arrows": "to", "from": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "title": "0.07", "to": "\uc2e4\uc18d\ub450\ubd80520G", "width": 0.7000000000000001}, {"arrows": "to", "from": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "title": "0.10", "to": "\uac74\uad6d)\uc6b0\ub9ac\uc6b0\uc720\uae30\ud68d900ML*2", "width": 1.0}, {"arrows": "to", "from": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "title": "0.06", "to": "\ub2e4\ub2e4\uae30\uc624\uc7744\uc785/(\ubd09)", "width": 0.6}, {"arrows": "to", "from": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "title": "0.06", "to": "\uace0\uc0b0\uc9c0\ubc14\ub098\ub09810CP", "width": 0.6}, {"arrows": "to", "from": "\ub2e4\ub2e4\uae30\uc624\uc7744\uc785/(\ubd09)", "title": "0.10", "to": "\uace0\uc0b0\uc9c0\ubc14\ub098\ub09810CP", "width": 1.0}, {"arrows": "to", "from": "\ub2e4\ub2e4\uae30\uc624\uc7744\uc785/(\ubd09)", "title": "0.10", "to": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "width": 1.0}, {"arrows": "to", "from": "\uace0\uc0b0\uc9c0\ubc14\ub098\ub09810CP", "title": "0.07", "to": "\ub2e4\ub2e4\uae30\uc624\uc7744\uc785/(\ubd09)", "width": 0.7000000000000001}, {"arrows": "to", "from": "\uace0\uc0b0\uc9c0\ubc14\ub098\ub09810CP", "title": "0.06", "to": "\uac74\uad6d)\uc6b0\ub9ac\uc6b0\uc720\uae30\ud68d900ML*2", "width": 0.6}, {"arrows": "to", "from": "\uace0\uc0b0\uc9c0\ubc14\ub098\ub09810CP", "title": "0.07", "to": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "width": 0.7000000000000001}, {"arrows": "to", "from": "\uac74\uad6d)\uc6b0\ub9ac\uc6b0\uc720\uae30\ud68d900ML*2", "title": "0.12", "to": "\ud310\uacc4\ub780(\ub300\ub780)/30\uc785", "width": 1.2}, {"arrows": "to", "from": "\uac74\uad6d)\uc6b0\ub9ac\uc6b0\uc720\uae30\ud68d900ML*2", "title": "0.06", "to": "\uace0\uc0b0\uc9c0\ubc14\ub098\ub09810CP", "width": 0.6}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {"edges": {"smooth": {"forceDirection": "none"}}, "physics": {"forceAtlas2Based": {"springLength": 150}, "minVelocity": 0.75, "solver": "forceAtlas2Based"}};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
